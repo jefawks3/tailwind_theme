@@ -1,0 +1,23 @@
+basic: "basic-classes"
+multipart:
+  key: "multi-part-key"
+complex:
+  base: "complex-base"
+  value_with_theme:
+    base: "variant-base"
+    default:
+      base: "variant-default-base"
+      disabled: "variant-default-disabled"
+  missing_style:
+    base: "missing-style-base"
+    foo: "missing-foo"
+  values:
+    base: "values-base"
+    test: "values-test"
+    foo: "values-foo"
+    bar: "values-bar"
+  boolean:
+    base: "boolean"
+    true: "boolean-true"
+    false: "boolean-false"
+  missing: "missing-attribute"
