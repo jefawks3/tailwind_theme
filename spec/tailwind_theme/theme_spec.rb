@@ -25,6 +25,14 @@ RSpec.describe TailwindTheme::Theme do
       expect(theme.css("multipart.key")).to eq "multi-part-key"
     end
 
+    it "appends the class name" do
+      expect(theme.css("multipart.key", append: "p-6")).to eq "multi-part-key p-6"
+    end
+
+    it "prepend the class name" do
+      expect(theme.css("multipart.key", prepend: "p-6")).to eq "p-6 multi-part-key"
+    end
+
     context "when string css path" do
       it "returns a css string" do
         expect(theme.css("basic")).to eq "basic-classes"

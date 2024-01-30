@@ -70,6 +70,8 @@ module TailwindTheme
     #
     # @param [String, Symbol, Array<String, Symbol>] path the path to the css classes or sub theme
     # @param [Hash<Symbol, Object>] options the options to use when parsing the css theme
+    # @option options [prepend] prepend the classnames before merging the Tailwind Classes
+    # @option options [append] append the classnames before merging the Tailwind Classes
     # @option options [Boolean] raise raise an `IndexError` if the `path` does not exist
     # @option options [Object] object the object to apply the sub theme
     # @option options [Hash<String, Object>] attributes the attributes to apply the sub theme. Overrides
@@ -84,13 +86,15 @@ module TailwindTheme
     # @raise [ArgumentError] if processing an object theme and the object or attributes option is not defined
     def css(path, options = {})
       classnames = build path, options
-      merge classnames
+      merge classnames, options
     end
 
     # Get the merged Tailwind CSS classes. Raises an IndexError if the path cannot be found.
     #
     # @param [String, Symbol, Array<String, Symbol>] path the path to the css classes or sub theme
     # @param [Hash<Symbol, Object>] options the options to use when parsing the css theme
+    # @option options [prepend] prepend the classnames before merging the Tailwind Classes
+    # @option options [append] append the classnames before merging the Tailwind Classes
     # @option options [Object] object the object to apply the sub theme
     # @option options [Hash<String, Object>] attributes the attributes to apply the sub theme. Overrides
     #   the attributes defined in `options[:object]`.
@@ -107,6 +111,8 @@ module TailwindTheme
     #
     # @param [Array<String, Symbol, Array<String, Symbol>>] paths the array of paths to combine
     # @param [Hash<Symbol, Object>] options the options to use when parsing the css theme
+    # @option options [prepend] prepend the classnames before merging the Tailwind Classes
+    # @option options [append] append the classnames before merging the Tailwind Classes
     # @option options [Boolean] raise raise an `IndexError` if the a path does not exist
     # @option options [Object] object the object to apply the sub theme
     # @option options [Hash<String, Object>] attributes the attributes to apply the sub theme. Overrides
@@ -121,7 +127,7 @@ module TailwindTheme
     # @raise [ArgumentError] if processing an object theme and the object or attributes option is not defined
     def merge_css(paths, options = {})
       classnames = paths.map { |path| build path, options }.compact.join(" ")
-      merge classnames
+      merge classnames, options
     end
 
     # Combine multiple paths and merging the combined Tailwind CSS classes. Raises an IndexError if a path
@@ -129,6 +135,8 @@ module TailwindTheme
     #
     # @param [Array<String, Symbol, Array<String, Symbol>>] paths the array of paths to combine
     # @param [Hash<Symbol, Object>] options the options to use when parsing the css theme
+    # @option options [prepend] prepend the classnames before merging the Tailwind Classes
+    # @option options [append] append the classnames before merging the Tailwind Classes
     # @option options [Object] object the object to apply the sub theme
     # @option options [Hash<String, Object>] attributes the attributes to apply the sub theme. Overrides
     #   the attributes defined in `options[:object]`.
@@ -273,8 +281,8 @@ module TailwindTheme
       end
     end
 
-    def merge(classnames)
-      classnames = Array(classnames).flatten.compact.join(" ")
+    def merge(classnames, options)
+      classnames = Array(classnames).prepend(options[:prepend]).append(options[:append]).flatten.compact.join(" ")
       TailwindTheme.merger.merge classnames
     end
   end
