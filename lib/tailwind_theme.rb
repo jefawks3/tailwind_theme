@@ -35,7 +35,7 @@ module TailwindTheme
   def self.load_file(path)
     contents = File.read path
     contents = ERB.new(contents).result if path.end_with?(".erb")
-    Theme.new YAML.safe_load(contents)
+    Theme.new YAML.safe_load(contents, aliases: true, filename: path)
   end
 
   # Generate the missing CSS class name from the path

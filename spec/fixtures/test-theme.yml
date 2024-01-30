@@ -1,8 +1,10 @@
 basic: "basic-classes"
-multipart:
+multipart: &test_alias
   key: "multi-part-key"
 complex:
   base: "complex-base"
+  alias:
+    <<: *test_alias
   value_with_theme:
     base: "variant-base"
     default:
