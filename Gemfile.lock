@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tailwind_theme (0.1.0)
+    tailwind_theme (0.1.1)
       tailwind_merge (~> 0.10)
 
 GEM
